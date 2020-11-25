@@ -32,20 +32,20 @@ func (tip *Tip) Create() error {
 
 func (message *Message) HelpHandler() string {
 	help_text := ""
-	help_text = emoji.Emoji("white_check_mark") + " Welcome to the Indiabits tipbot."
+	help_text = emoji.Emoji("white_check_mark") + " Welcome to the 999Doge tipbot."
 	help_text += "\n\nCommands:"
 	help_text += "\n" + emoji.Emoji("heavy_minus_sign") + " /register: Register an account. Make sure you have a telegram username. Your funds are associated with your telegram username so withdraw all your funds if you decide to change your telegram username"
 	help_text += "\n" + emoji.Emoji("heavy_minus_sign") + " /address: Get your bitcoin deposit address"
-	help_text += "\n" + emoji.Emoji("heavy_minus_sign") + " /withdraw <address> <amount>: Withdraw coins to a bitcoin address. Withdrawal fee: " + os.Getenv("WITHDRAWAL_FEE") + " BTC. Minimum amount: " + os.Getenv("MINIMUM_AMOUNT_TO_WITHDRAW")
+	help_text += "\n" + emoji.Emoji("heavy_minus_sign") + " /withdraw <address> <amount>: Withdraw coins to a dogecoin address. Withdrawal fee: " + os.Getenv("WITHDRAWAL_FEE") + " DOGE. Minimum amount: " + os.Getenv("MINIMUM_AMOUNT_TO_WITHDRAW")
 	help_text += "\n" + emoji.Emoji("heavy_minus_sign") + " /balance: Check your balance"
 	help_text += "\n" + emoji.Emoji("heavy_minus_sign") + " /tip <amount>: Reply to any message with tip <amount> and the sender of the message will be tipped with the specified amount"
 	help_text += "\n" + emoji.Emoji("heavy_minus_sign") + " /help for this help menu"
-	help_text += "\n\n" + emoji.Emoji("bar_chart") + " [Click here](https://tips.indiabits.org) for DashBoard and Stats"
-	help_text += "\n" + emoji.Emoji("information_source") + " Tips are offchain hence no fees for tipping users and database is maintained by one of the IndiaBits Admin."
+	help_text += "\n\n" + emoji.Emoji("bar_chart") + " [Click here](https://t.me/monkeydc) for Information"
+	help_text += "\n" + emoji.Emoji("information_source") + " Tips are offchain hence no fees for tipping users and database is maintained by one of the Sion Admin."
 	help_text += "\n" + emoji.Emoji("heavy_minus_sign") + " Supports tip amount upto 8 decimal amount/points"
 	help_text += "\n" + emoji.Emoji("warning") + " Its not recommended to use tipbot as a wallet or to exchange large amounts."
-	help_text += "\n" + emoji.Emoji("busts_in_silhouette") + " Created by @IndiaBits community Member @Funyug and @elpoep"
-	help_text += "\n" + emoji.Emoji("heart") + " Help with project with Donation: 325HAkcqboAvE39ZrHhigLFQyAQgeL8Jum"
+	help_text += "\n" + emoji.Emoji("busts_in_silhouette") + " Created by @Monkeydc founder of bitszone.io"
+	help_text += "\n" + emoji.Emoji("heart") + " Help with project with Dogecoin Donation DR1G1FTb3sMqbpwBpREkL1uBaaTrdDQukw"
 	return help_text
 }
 
@@ -129,8 +129,8 @@ func (message *Message) BalanceHandler(tmessage *telebot.Message) string {
 		unconfirmed_balance += transaction.Amount
 	}
 
-	confirmed_balance_text := emoji.Emoji("white_check_mark") + " Balance: " + strconv.FormatFloat(user.Balance, 'f', 8, 64) + " BTC\n"
-	unconfirmed_balance_text := emoji.Emoji("information_source") + " Pending: " + strconv.FormatFloat(unconfirmed_balance, 'f', 8, 64) + " BTC"
+	confirmed_balance_text := emoji.Emoji("white_check_mark") + " Balance: " + strconv.FormatFloat(user.Balance, 'f', 8, 64) + " DOGE\n"
+	unconfirmed_balance_text := emoji.Emoji("information_source") + " Pending: " + strconv.FormatFloat(unconfirmed_balance, 'f', 8, 64) + " DOGE"
 	if len(transactions) < 1 {
 		unconfirmed_balance_text = ""
 	}
@@ -159,7 +159,7 @@ func (message *Message) WithdrawHandler(tmessage *telebot.Message) string {
 
 	address, err := getAddress(data[0])
 	if err != nil {
-		return emoji.Emoji("information_source") + " Please enter a valid bitcoin address"
+		return emoji.Emoji("information_source") + " Please enter a valid dogecoin address"
 	}
 
 	var amount float64
@@ -251,7 +251,7 @@ func (message *Message) WithdrawHandler(tmessage *telebot.Message) string {
 	}
 
 	amount_sent := strconv.FormatFloat((amount - withdrawal_fee), 'g', 8, 64)
-	return emoji.Emoji("ballot_box_with_check") + " Sent " + amount_sent + " BTC with tx id: <a href=\"https://www.blockchain.com/en/btc/tx/" + tx.String() + "\">" + tx.String() + "</a>"
+	return emoji.Emoji("ballot_box_with_check") + " Sent " + amount_sent + " DOGE with tx id: <a href=\"https://dogechain.info/tx/" + tx.String() + "\">" + tx.String() + "</a>"
 }
 
 func (message *Message) TipHandler(tmessage *telebot.Message) string {
@@ -372,7 +372,7 @@ func (message *Message) TipHandler(tmessage *telebot.Message) string {
 
 	amount_text := strconv.FormatFloat(amount, 'f', 8, 64)
 
-	return emoji.Emoji("ballot_box_with_check") + " @" + user.Username + " tipped " + amount_text + " btc to " + "@" + otheruser.Username
+	return emoji.Emoji("ballot_box_with_check") + " @" + user.Username + " tipped " + amount_text + " doge to " + "@" + otheruser.Username
 }
 
 func findUser(username string) (*User, error) {
@@ -426,7 +426,7 @@ func withdrawalValidations(tmessage *telebot.Message) string {
 
 	_, err = getAddress(data[0])
 	if err != nil {
-		return emoji.Emoji("information_source") + " Please enter a valid bitcoin address"
+		return emoji.Emoji("information_source") + " Please enter a valid dogecoin address"
 	}
 
 	var amount float64
